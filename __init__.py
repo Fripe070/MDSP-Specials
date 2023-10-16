@@ -98,7 +98,7 @@ class MuteVoteView(discord.ui.View):
         await self.handle(interaction, vote)
 
 
-class PlatformConverter(breadcord.module.ModuleCog):
+class MDSPSpecials(breadcord.module.ModuleCog):
     def __init__(self, module_id: str):
         super().__init__(module_id)
 
@@ -164,4 +164,4 @@ class PlatformConverter(breadcord.module.ModuleCog):
 
 
 async def setup(bot: breadcord.Bot):
-    await bot.add_cog(PlatformConverter("mdsp_specials"))
+    await bot.add_cog(MDSPSpecials("mdsp_specials"))
