@@ -1,0 +1,10 @@
+manifest_version = 1
+
+[module]
+name = "MDSP Specials"
+id = "mdsp_specials"
+description = "Special features and functions for MDSP"
+version = "0.0.1"
+license = "GNU GPLv3"
+authors = ["Fripe"]
+requirements = []
