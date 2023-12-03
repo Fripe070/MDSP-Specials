@@ -1,7 +1,9 @@
+import asyncio
 import datetime
+import random
 import time
-from dataclasses import dataclass
 from collections import Counter
+from dataclasses import dataclass
 
 import discord
 from discord.ext import commands
@@ -161,6 +163,39 @@ class MDSPSpecials(breadcord.module.ModuleCog):
             mute_until,
             reason=f"Muted by a vote. {positive_votes} votes for, {negative_votes} votes against.",
         )
+
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message):
+        content = message.content.lower()
+        content = content.removeprefix("f!")
+        if message.content.lower() == content:
+            return
+
+        def command_names(command: commands.Command) -> list[str]:
+            return [
+                f"{command.full_parent_name} {alias}".lstrip()
+                for alias in command.aliases + [command.name]
+            ]
+
+        if not any(
+            content.startswith(command_name)
+            for command in self.bot.commands
+            for command_name in command_names(command)
+        ):
+            return
+
+        # Give fripe.py some time to reply in case the command is heavier, won't always work though
+        await asyncio.sleep(2.0)
+
+        if not any([
+            msg.author.id == 818919767784161293
+            async for msg in message.channel.history(limit=5)
+            if msg.created_at > message.created_at
+        ]):
+            return
+
+        choices: list[str] = self.settings.fripe_py_disendorcements.value
+        await message.reply(random.choice(choices))
 
 
 async def setup(bot: breadcord.Bot):
