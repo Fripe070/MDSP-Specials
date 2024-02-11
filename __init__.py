@@ -166,9 +166,10 @@ class MDSPSpecials(breadcord.module.ModuleCog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        content = message.content.lower()
-        content = content.removeprefix("f!")
+        content = message.content.lower().removeprefix("f!")
         if message.content.lower() == content:
+            return
+        if await self.bot.is_owner(message.author):
             return
 
         def command_names(command: commands.Command) -> list[str]:
