@@ -171,6 +171,8 @@ class MDSPSpecials(breadcord.module.ModuleCog):
             return
         if await self.bot.is_owner(message.author):
             return
+        if random.random() < 1/3:
+            return
 
         def command_names(command: commands.Command) -> list[str]:
             return [
