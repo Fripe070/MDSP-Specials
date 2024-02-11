@@ -174,7 +174,7 @@ class MDSPSpecials(breadcord.module.ModuleCog):
         def command_names(command: commands.Command) -> list[str]:
             return [
                 f"{command.full_parent_name} {alias}".lstrip()
-                for alias in command.aliases + [command.name]
+                for alias in [*command.aliases, command.name]
             ]
 
         if not any(
