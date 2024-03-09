@@ -166,6 +166,26 @@ class MDSPSpecials(breadcord.module.ModuleCog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
+        await self.fripe_py_check(message)
+        await self.i_hate_j(message)
+
+    async def i_hate_j(self, message: discord.Message):
+        if message.author.id != 371382454021390337:
+            return
+        if (reference := message.reference) is None:
+            return
+        if (replied_to := reference.resolved) is None:
+            return
+        if replied_to.author == message.author:
+            return
+        if replied_to.author in message.mentions:
+            return
+
+        await message.reply(
+            f"{replied_to.author.mention} Do you agree that {message.author.mention} is stupid for not pinging you?"
+        )
+
+    async def fripe_py_check(self, message: discord.Message):
         content = message.content.lower()
         content = content.removeprefix("f!")
         if message.content.lower() == content:
