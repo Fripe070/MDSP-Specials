@@ -186,15 +186,18 @@ class MDSPSpecials(breadcord.module.ModuleCog):
         )
 
     async def fripe_py_check(self, message: discord.Message):
-        content = message.content.lower()
-        content = content.removeprefix("f!")
+        content = message.content.lower().removeprefix("f!")
         if message.content.lower() == content:
+            return
+        if await self.bot.is_owner(message.author):
+            return
+        if random.random() < 1/3:
             return
 
         def command_names(command: commands.Command) -> list[str]:
             return [
                 f"{command.full_parent_name} {alias}".lstrip()
-                for alias in command.aliases + [command.name]
+                for alias in [*command.aliases, command.name]
             ]
 
         if not any(
