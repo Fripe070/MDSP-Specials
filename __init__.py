@@ -221,5 +221,5 @@ class MDSPSpecials(breadcord.module.ModuleCog):
         await message.reply(random.choice(choices))
 
 
-async def setup(bot: breadcord.Bot):
-    await bot.add_cog(MDSPSpecials("mdsp_specials"))
+async def setup(bot: breadcord.Bot, module: breadcord.module.Module) -> None:
+    await bot.add_cog(MDSPSpecials(module.id))
